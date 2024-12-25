@@ -57,7 +57,7 @@ class _StepperWidgetState extends State<StepperWidget> {
                       TextSpan(text: "🤝", style: TextStyle(fontSize: 20.0)),
                       TextSpan(
                           text:
-                              '''   Please provide necessary details in order to proceed.''',
+                              '''   Please provide necessary details in order to proceed and make sure you've internet access.''',
                           style: TextStyle(
                               fontSize: 15.0,
                               color: const Color.fromARGB(255, 230, 229, 229))),
