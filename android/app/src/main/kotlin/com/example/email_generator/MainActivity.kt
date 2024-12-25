@@ -1,4 +1,4 @@
-package com.example.email_generator
+package com.example.flybird
 
 import io.flutter.embedding.android.FlutterActivity
 
