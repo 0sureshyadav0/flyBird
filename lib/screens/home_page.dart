@@ -92,8 +92,12 @@ class EmailGeneratorScreenState extends State<EmailGeneratorScreen> {
       });
       return responseData[0]['generated_text'];
     } else {
-      Get.snackbar("Error", "Something went wrong try again...",
-          colorText: Colors.white);
+      Get.snackbar(
+        "⚠️ Error",
+        "🤦 Please make sure you've entered correct email & app password",
+        colorText: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 133, 17, 8),
+      );
       return "null";
     }
   }
