@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GlassmorphicDropdown extends StatelessWidget {
   final String? value;
@@ -34,7 +35,10 @@ class GlassmorphicDropdown extends StatelessWidget {
         onChanged: onChanged,
         items: items,
         hint: Text("Subject",
-            style: TextStyle(color: Colors.white, fontSize: 16.5)),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.5,
+                fontFamily: GoogleFonts.playfair().fontFamily)),
         style: TextStyle(color: Colors.white),
         dropdownColor: const Color.fromARGB(255, 37, 11, 83),
         decoration: const InputDecoration(

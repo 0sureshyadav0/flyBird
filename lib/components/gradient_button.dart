@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GradientButton extends StatefulWidget {
   final VoidCallback onpressed;
@@ -62,8 +63,12 @@ class GradientButtonState extends State<GradientButton> {
             alignment: Alignment.center,
             child: RichText(
               text: TextSpan(children: [
-                TextSpan(text: widget.icon, style: TextStyle(fontSize: 25.0)),
-                TextSpan(text: widget.text, style: TextStyle(fontSize: 16.0)),
+                TextSpan(text: widget.icon, style: TextStyle(fontSize: 20.0)),
+                TextSpan(
+                    text: widget.text,
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontFamily: GoogleFonts.playfair().fontFamily)),
               ]),
             )),
       ),

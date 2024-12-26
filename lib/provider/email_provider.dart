@@ -21,6 +21,7 @@ class EmailProvider extends ChangeNotifier {
     await box.put("UserName", username);
     await box.put("Password", password);
     await box.put("isLoggedIn", true);
+
     notifyListeners();
   }
 
@@ -41,6 +42,7 @@ class EmailProvider extends ChangeNotifier {
     _email = await box.get("Email");
     _username = await box.get("UserName");
     _password = await box.get("Password");
+    // Get.snackbar("Error", "$e", colorText: Colors.white);
     notifyListeners();
   }
 
@@ -49,25 +51,28 @@ class EmailProvider extends ChangeNotifier {
     await box.delete("Email");
     await box.put("Email", newEmail);
     _email = await box.get("Email");
-    Get.snackbar("Success", "$newEmail has been saved");
+    Get.snackbar("Success", "$newEmail has been saved",
+        colorText: Colors.white);
     notifyListeners();
   }
 
   Future<void> setNewPassword(String newPassword) async {
-    var box = await Hive.openBox("Password");
+    var box = await Hive.openBox("EmailBox");
     await box.delete("Password");
     await box.put("Password", newPassword);
     _password = await box.get("Password");
+    Get.snackbar("Success", "$newPassword has been saved",
+        colorText: Colors.white);
     notifyListeners();
   }
 
   Future<void> setNewUserName(String newUserName) async {
-    var box = await Hive.openBox("Password");
+    var box = await Hive.openBox("EmailBox");
     await box.delete("UserName");
     await box.put("UserName", newUserName);
-    _password = await box.get("UserName");
-    Get.snackbar("Success", "$newUserName has been saved");
-
+    _username = await box.get("UserName");
+    Get.snackbar("Success", "$newUserName has been saved",
+        colorText: Colors.white);
     notifyListeners();
   }
 }

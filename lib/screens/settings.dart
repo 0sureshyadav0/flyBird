@@ -1,4 +1,5 @@
 import 'package:email_generator/components/text_field.dart';
+import 'package:email_generator/consts/consts.dart';
 import 'package:email_generator/provider/email_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,11 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 37, 11, 83),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           Opacity(
-            opacity: 0.4,
+            opacity: opacity,
             child: Image.asset(
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
@@ -114,6 +115,7 @@ class _SettingsState extends State<Settings> {
                                               _newNameController.text);
                                           Navigator.pop(context);
                                           FocusScope.of(context).unfocus();
+                                          _newNameController.clear();
                                         },
                                         child: Text(
                                           "Confirm",
@@ -189,6 +191,7 @@ class _SettingsState extends State<Settings> {
                                               _newEmailController.text);
                                           Navigator.pop(context);
                                           FocusScope.of(context).unfocus();
+                                          _newEmailController.clear();
                                         },
                                         child: Text(
                                           "Confirm",
@@ -204,7 +207,7 @@ class _SettingsState extends State<Settings> {
                     child: ListTile(
                       tileColor: Colors.white.withAlpha((0.4 * 255).toInt()),
                       title: Text(
-                        "🔑 Password",
+                        "🔑 App Password",
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -244,14 +247,14 @@ class _SettingsState extends State<Settings> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   title: Text(
-                                    '''✍️  Change Password''',
+                                    '''✍️  Change App Password''',
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       color: Colors.white,
                                     ),
                                   ),
                                   content: GlassmorphicTextField(
-                                    labelText: "Enter new password",
+                                    labelText: "Enter new app password",
                                     controller: _newPasswordController,
                                   ),
                                   actions: [
@@ -270,6 +273,7 @@ class _SettingsState extends State<Settings> {
                                               _newPasswordController.text);
                                           Navigator.pop(context);
                                           FocusScope.of(context).unfocus();
+                                          _newPasswordController.clear();
                                         },
                                         child: Text(
                                           "Confirm",
@@ -290,7 +294,4 @@ class _SettingsState extends State<Settings> {
   }
 
   bool isVisible = false;
-  List<Widget> tiles() {
-    return [ListTile()];
-  }
 }

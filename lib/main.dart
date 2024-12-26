@@ -1,8 +1,10 @@
 import 'package:email_generator/provider/email_provider.dart';
 import 'package:email_generator/screens/home_page.dart';
+import 'package:email_generator/screens/loading_screens.dart';
 import 'package:email_generator/screens/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +31,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
     Provider.of<EmailProvider>(context, listen: false).isUserLoggedIn();
   }
 
@@ -40,25 +41,12 @@ class _MyAppState extends State<MyApp> {
       title: 'Fly Bird',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: GoogleFonts.playfair().fontFamily,
       ),
       home: Consumer<EmailProvider>(builder:
           (BuildContext context, EmailProvider provider, Widget? child) {
         if (provider.isLoading) {
-          return Scaffold(
-              backgroundColor: const Color.fromARGB(255, 37, 11, 83),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 20),
-                    Text("Loading",
-                        style: TextStyle(
-                          color: Colors.white,
-                        )),
-                  ],
-                ),
-              ));
+          return LoadingScreen();
         }
 
         return provider.isLoggedIn ? EmailGeneratorScreen() : StepperWidget();

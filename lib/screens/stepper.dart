@@ -1,7 +1,11 @@
 import 'package:email_generator/components/text_field.dart';
+import 'package:email_generator/consts/consts.dart';
 import 'package:email_generator/provider/email_provider.dart';
 import 'package:email_generator/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class StepperWidget extends StatefulWidget {
@@ -20,15 +24,16 @@ class _StepperWidgetState extends State<StepperWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 37, 11, 83),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0),
           child: Stack(
             children: [
               Opacity(
-                opacity: 0.4,
+                opacity: opacity,
                 child: Image.asset(
                     height: MediaQuery.of(context).size.height,
                     fit: BoxFit.cover,
@@ -52,20 +57,25 @@ class _StepperWidgetState extends State<StepperWidget> {
                         text: TextSpan(children: [
                       TextSpan(text: "🙋", style: TextStyle(fontSize: 30.0)),
                       TextSpan(
-                          text: "Hi, there\n\n",
-                          style: TextStyle(fontSize: 20.0)),
+                          text: "Hi, there\n",
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily:
+                                  GoogleFonts.playfairDisplay().fontFamily)),
                       TextSpan(text: "🤝", style: TextStyle(fontSize: 20.0)),
                       TextSpan(
                           text:
                               '''   Please provide necessary details in order to proceed and make sure you've internet access.''',
                           style: TextStyle(
                               fontSize: 15.0,
+                              fontFamily:
+                                  GoogleFonts.playfairDisplay().fontFamily,
                               color: const Color.fromARGB(255, 230, 229, 229))),
                     ])),
                   ),
                   SizedBox(
                     width: double.infinity,
-                    height: 700,
+                    height: 560,
                     child: Stepper(
                       connectorColor: WidgetStatePropertyAll(Colors.deepPurple),
                       connectorThickness: 2,
@@ -73,7 +83,13 @@ class _StepperWidgetState extends State<StepperWidget> {
                       currentStep: currentStep,
                       onStepContinue: () => setState(() {
                         if (currentStep < getSteps().length - 1) {
-                          currentStep += 1;
+                          if (currentStep == 0) {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              currentStep += 1;
+                            }
+                          } else {
+                            currentStep += 1;
+                          }
                         }
                       }),
                       onStepCancel: currentStep == 0
@@ -100,37 +116,50 @@ class _StepperWidgetState extends State<StepperWidget> {
                               ),
                             ),
                             SizedBox(width: 20),
-                            ElevatedButton(
-                              onPressed: currentStep == 4
-                                  ? () {
-                                      Provider.of<EmailProvider>(context,
-                                              listen: false)
-                                          .setEmail(
+                            Consumer<EmailProvider>(
+                              builder:
+                                  (context, EmailProvider provider, child) {
+                                return ElevatedButton(
+                                  onPressed: currentStep == 4
+                                      ? () {
+                                          provider.setEmail(
                                               _emailController.text,
                                               _nameController.text,
                                               _passwordController.text);
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EmailGeneratorScreen()));
-                                    }
-                                  : details
-                                      .onStepContinue, // Disable if email is invalid
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Colors.blue, // Next button color
-                              ),
-                              child: Text(
-                                currentStep == 4 ? 'Confirm' : 'Next',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          Future.delayed(Duration(seconds: 5),
+                                              () {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                            Get.off(
+                                                () => EmailGeneratorScreen());
+                                          });
+                                        }
+                                      : details
+                                          .onStepContinue, // Disable if email is invalid
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Colors.blue, // Next button color
+                                  ),
+                                  child: Text(
+                                    currentStep == 4 ? 'Confirm' : 'Next',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         );
                       },
                     ),
                   ),
+                  isLoading
+                      ? Lottie.asset(
+                          height: 100, "./assets/lottie/loading.json")
+                      : Text(""),
                 ],
               ),
             ],
@@ -148,7 +177,8 @@ class _StepperWidgetState extends State<StepperWidget> {
   //       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'); // Simple email regex
   //   return emailRegex.hasMatch(email);
   // }
-
+  bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
   List<Step> getSteps() {
     return [
       Step(
@@ -156,23 +186,26 @@ class _StepperWidgetState extends State<StepperWidget> {
             StepStyle(color: currentStep == 0 ? Colors.green : Colors.blue),
         content: Column(
           children: [
-            GlassmorphicTextField(
-              prefixIcon: Text(
-                "📧",
-                style: TextStyle(fontSize: 30),
+            Form(
+              key: _formKey,
+              child: GlassmorphicTextField(
+                prefixIcon: Text(
+                  "📧",
+                  style: TextStyle(fontSize: 30),
+                ),
+                controller: _emailController,
+                labelText: "Enter your email",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Email is required";
+                  }
+                  // Basic email regex validation
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    return "Enter a valid email";
+                  }
+                  return null;
+                },
               ),
-              controller: _emailController,
-              labelText: "Please enter your email",
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Email is required";
-                }
-                // Basic email regex validation
-                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                  return "Enter a valid email";
-                }
-                return null;
-              },
             ),
             SizedBox(height: 10),
           ],

@@ -1,8 +1,11 @@
 import 'package:email_generator/components/text_field.dart';
+import 'package:email_generator/consts/consts.dart';
 import 'package:email_generator/provider/email_provider.dart';
+import 'package:email_generator/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:email_generator/components/gradient_button.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +37,7 @@ class GeneratedEmailState extends State<GeneratedEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 37, 11, 83),
+      backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
@@ -43,7 +46,7 @@ class GeneratedEmailState extends State<GeneratedEmail> {
           SizedBox(
             height: double.infinity,
             child: Opacity(
-              opacity: 0.5,
+              opacity: opacity,
               child: Image.asset(
                 './assets/images/background.jpeg', // Make sure to add the image in assets
                 fit: BoxFit.cover,
@@ -104,8 +107,8 @@ class GeneratedEmailState extends State<GeneratedEmail> {
                         ? Column(
                             children: [
                               SizedBox(height: 20),
-                              CircularProgressIndicator(),
-                              SizedBox(height: 20),
+                              Lottie.asset(
+                                  height: 100, "./assets/lottie/loading.json"),
                               Text(
                                 "⏳ Sending...",
                                 style: TextStyle(color: Colors.white),
@@ -154,28 +157,30 @@ class GeneratedEmailState extends State<GeneratedEmail> {
         isLoading = false;
       });
       Get.snackbar("✅ Success", '''😊  Email sent successfully''',
-          colorText: Colors.white, backgroundColor: Colors.green);
+          duration: Duration(seconds: 3),
+          colorText: Colors.white,
+          backgroundColor: Colors.green);
+      Future.delayed(Duration(seconds: 2), () {
+        Get.offAll(() => EmailGeneratorScreen());
+      });
     } on MailerException catch (e) {
-      Get.snackbar(
-        "⚠️ Error",
-        "🤦 Failed to send email: $e",
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-      );
       for (var p in e.problems) {
         Get.snackbar(
           "⚠️ Error",
           "🤦 Problem: ${p.code}:${p.msg}",
           colorText: Colors.white,
-          backgroundColor: Colors.red,
+          backgroundColor: const Color.fromARGB(255, 133, 17, 8),
         );
       }
       Get.snackbar(
         "⚠️ Error",
-        "🤦 Failed to send email",
+        "🤦 Please make sure you've entered correct email & app password",
         colorText: Colors.white,
-        backgroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 133, 17, 8),
       );
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 }

@@ -1,13 +1,16 @@
 import 'dart:convert';
+import 'package:email_generator/consts/consts.dart';
 import 'package:email_generator/provider/email_provider.dart';
 import 'package:email_generator/screens/generated_email.dart';
 import 'package:email_generator/screens/settings.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:email_generator/components/drop_down.dart';
 import 'package:email_generator/components/gradient_button.dart';
 import 'package:email_generator/components/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -165,24 +168,22 @@ ${Provider.of<EmailProvider>(context, listen: false).username}
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 37, 11, 83),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           // Background Image
           SizedBox(
             height: double.infinity,
-            child: Image.asset(
-              './assets/images/background.jpeg', // Make sure to add the image in assets
-              fit: BoxFit.cover,
+            child: Opacity(
+              opacity: opacity,
+              child: Image.asset(
+                './assets/images/background.jpeg', // Make sure to add the image in assets
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           // Glassmorphism Effect
-          Positioned.fill(
-            child: Container(
-              color: Colors.black
-                  .withAlpha((0.5 * 255).toInt()), // Overlay for glassmorphism
-            ),
-          ),
+
           SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
@@ -281,7 +282,10 @@ ${Provider.of<EmailProvider>(context, listen: false).username}
                             value: subject,
                             child: Text(
                               subject,
-                              style: TextStyle(fontSize: 16.5),
+                              style: TextStyle(
+                                  fontSize: 16.5,
+                                  fontFamily:
+                                      GoogleFonts.playfair().fontFamily),
                             ),
                           );
                         },
@@ -318,13 +322,12 @@ ${Provider.of<EmailProvider>(context, listen: false).username}
                       );
                     }),
                     SizedBox(height: 100),
-
                     isLoading
-                        ? const Center(
+                        ? Center(
                             child: Column(
                             children: [
-                              CircularProgressIndicator(),
-                              SizedBox(height: 20),
+                              Lottie.asset(
+                                  height: 100, "./assets/lottie/loading.json"),
                               Text("🤔 Writing....",
                                   style: TextStyle(color: Colors.white)),
                             ],
