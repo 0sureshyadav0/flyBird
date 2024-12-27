@@ -213,24 +213,22 @@ ${Provider.of<EmailProvider>(context, listen: false).username}
                             offset: Offset(0, 50),
                             itemBuilder: (context) => <PopupMenuItem>[
                                   PopupMenuItem(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                duration:
-                                                    Duration(milliseconds: 250),
-                                                child: Settings(),
-                                                type: PageTransitionType
-                                                    .rightToLeft));
-                                      },
-                                      child: Text(
-                                        '''🔧   Settings''',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
+                                    onTap: () {
+                                      // Navigator.pop(context);
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              duration:
+                                                  Duration(milliseconds: 250),
+                                              child: Settings(),
+                                              type: PageTransitionType
+                                                  .rightToLeft));
+                                    },
+                                    child: Text(
+                                      '''🔧   Settings''',
+                                      style: TextStyle(color: Colors.white),
                                     ),
-                                  )
+                                  ),
                                 ])
                       ],
                     ),
