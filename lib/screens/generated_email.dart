@@ -48,7 +48,7 @@ class GeneratedEmailState extends State<GeneratedEmail> {
             child: Opacity(
               opacity: opacity,
               child: Image.asset(
-                './assets/images/background.jpeg', // Make sure to add the image in assets
+                backgroundImagePath, // Make sure to add the image in assets
                 fit: BoxFit.cover,
               ),
             ),

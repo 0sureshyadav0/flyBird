@@ -8,7 +8,7 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 37, 11, 83),
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           Opacity(
@@ -17,7 +17,7 @@ class LoadingScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                "./assets/images/background.jpeg"),
+                backgroundImagePath),
           ),
           Center(
               child: Column(

@@ -29,7 +29,7 @@ class _SettingsState extends State<Settings> {
                 height: MediaQuery.of(context).size.height,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                "./assets/images/background.jpeg"),
+                backgroundImagePath),
           ),
           AppBar(
             backgroundColor: Colors.transparent,

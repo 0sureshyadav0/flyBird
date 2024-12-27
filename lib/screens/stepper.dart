@@ -37,7 +37,7 @@ class _StepperWidgetState extends State<StepperWidget> {
                 child: Image.asset(
                     height: MediaQuery.of(context).size.height,
                     fit: BoxFit.cover,
-                    "./assets/images/background.jpeg"),
+                    backgroundImagePath),
               ),
               Column(
                 children: [
