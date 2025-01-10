@@ -134,6 +134,7 @@ class GeneratedEmailState extends State<GeneratedEmail> {
 
   bool isLoading = false;
   bool isChanged = false;
+
   Future<void> sendEmail(String appname, String email, String password) async {
     final smtpServer = gmail(email, password); // For Gmail
 
