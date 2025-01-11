@@ -82,7 +82,7 @@ A simple mail generator app which uses AI to generate mail based on user's subje
 - **Dart**: Programming language.
 - **Provider Package**: For state management.
 - **Get Package**: For navigation and snackbars.
-- **AI Used**: `huggingface.co/models/google/flan-t5-large` to generate emails
+- **AI Tool**: `huggingface.co/models/google/flan-t5-large` to generate emails
 - **mailer Package**: To send direct emails.
 
 ## Dependencies Used
