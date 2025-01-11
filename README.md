@@ -6,7 +6,7 @@ A simple mail generator app which uses AI to generate mail based on user's subje
 
 ## 🌟 Features
 
-- **Easily Access**: Easy access from anywhere, anytime
+- **Easy Access**: Access from anywhere, anytime
 - **Time Management**: You don't have to write email from scratch which increase efficiency.
 - **Direct Send**: Direct send email within the app. You don't need to copy the generated email and paste it in your email client inorder to send.
 - **Inbuilt Subject**:It provides some inbuilt subjects like "Meeting Invitation", "Job Offer", "Projects Update", etc.
@@ -40,12 +40,12 @@ A simple mail generator app which uses AI to generate mail based on user's subje
 - Click the Download button to download the app from MediaFire.
 - Allow permission to install app from unknown sources.
 
-  - **Note**: It will say that the app may contain some malware cause I haven't added anything like that. But it is safe to install.
+  - **Note**: It will say that the app may contain some malware but I haven't added anything like that. It is safe to install.
   - If you have still confusion/doubt then feel free to ask anything about it.
 
 - After installation, open the app and follow the instruction that is being provided in the app carefully otherwise app may not perform task.
 - And here you go. Enjoy the app
-- Don't forget to give feedback about adding some features or something you found unexpected.
+- Don't forget to give feedback about adding some features or something found unexpected.
 
 # For Developer
 
