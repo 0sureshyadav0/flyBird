@@ -132,7 +132,7 @@ flyBird/
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/0sureshyadav0/flyBird/blob/master/LICENSE.txt?raw=true) file for details.
 
 ---
 
