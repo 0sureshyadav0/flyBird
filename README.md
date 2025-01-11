@@ -24,9 +24,9 @@ A simple mail generator app which uses AI to generate mail based on user's subje
 
 <center>
 <div style="display:flex;gap:20px;">
-<img src="./assets/images/img1.jpg" height = "720px" width="300px">
-<img src="./assets/images/img2.jpg" height = "720px" width="300px">
-<img src="./assets/images/img3.jpg" height = "720px" width="300px">
+<img src="https://github.com/0sureshyadav0/flyBird/blob/master/assets/images/flyBirdHome.jpg?raw=true" height = "720px" width="300px">
+<img src="https://github.com/0sureshyadav0/flyBird/blob/master/assets/images/flyBirdGeneratedEmail.jpg?raw=true" height = "720px" width="300px">
+<img src="https://github.com/0sureshyadav0/flyBird/blob/master/assets/images/flyBirdSetting.jpg?raw=true" height = "720px" width="300px">
 </div>
 
 </center>
